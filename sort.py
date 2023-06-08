@@ -6,8 +6,7 @@ from pathlib import Path
 from glob import glob
 #py sort.py i:/Users/rostislav.ATEM/Desktop/Мотлох/
 # key names will be folder names!
-#main_path = 'C:/Users/Rost/Desktop/Мотлох1/'
-#main_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2\\'
+
 
 extensions = {
     'video': ['mp4', 'mov', 'avi', 'mkv'],
