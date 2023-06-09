@@ -32,15 +32,15 @@ def del_empty_dirs(path):
                 print(a, 'видалена')
 
 
-def extract_file(file: Path, root_dir: Path, categorie: str) -> None:
-
+def extract_file(file: Path, folder_path: Path, extension) -> None:
+    print(file)
+    shutil.unpack_archive(
+        file, 'C:/Users/Rost/Desktop/Мотлох11\\archives', extension)
     try:
-        shutil.unpack_archive(file, os.path.join(
-            f'{root_dir}\\archives\\{file}'), categorie)
-        # print (path)
+        # print(f'{root_dir}\\archives\\')
         os.remove(file)
     except ValueError:
-
+        # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])
         return
 
 
@@ -71,10 +71,10 @@ def move_file(file: Path, root_dir: Path, categorie: str) -> None:
     if not target_dir.exists():
         target_dir.mkdir()
     new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
-    print(new_name)
+    # print(new_name)
     if new_name.exists():
         new_name = new_name.with_name(
-            f"{new_name.stem}-{uuid.uuid5()}{file.suffix}")
+            f"{new_name.stem}-{uuid.uuid4()}{file.suffix}")
     file.rename(new_name)
 
 
@@ -89,9 +89,7 @@ def sort_folder(path: Path) -> None:
 
             # print(extension)
     del_empty_dirs(path)
-
-# delete_emppty_folders(path)
-# upack_archive(path)
+    # extract_file(path)
 
 
 # main_path = 'C:/Users/Rost/Desktop/Мотлох/'
