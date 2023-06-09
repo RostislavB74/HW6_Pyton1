@@ -6,8 +6,7 @@ from pathlib import Path
 from glob import glob
 #py sort.py i:/Users/rostislav.ATEM/Desktop/Мотлох/
 # key names will be folder names!
-#main_path = 'C:/Users/Rost/Desktop/Мотлох1/'
-#main_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2'
+
 
 extensions = {
     'video': ['mp4', 'mov', 'avi', 'mkv'],
@@ -18,7 +17,7 @@ extensions = {
 }
 
 #folder_path = 'C:/Users/Rost/Desktop/Мотлох1'
-folder_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2'
+#folder_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2\\'
 
 normalized_name = []
 
@@ -60,17 +59,16 @@ def normalize(file_for_translate):
 
     for elem in file_for_translate:
         new_name.append(elem.translate(map_translate_ord).replace(' ', '_'))
-    # print(new_name)
+    
     return new_name
 
 
 if __name__ == "__main__":
 #main_path = 'C:/Users/Rost/Desktop/Мотлох1/'
-#main_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2\\'
-#py sort.py i:/Users/rostislav.ATEM/Desktop/Мотлох
-    main_path = sys.argv[1]
+    main_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2\\'
+    #main_path = sys.argv[1]
     create_folders_from_extension(main_path, extensions)
-
+    folder_path = main_path
 for root, dirs, files in os.walk(folder_path):
     if dirs != extensions:
         for file in files:
@@ -88,12 +86,6 @@ for root, dirs, files in os.walk(folder_path):
                     normalized_name = (normalize(file_for_translate))
                     new_name = '.'.join(normalized_name)
                     folder = ext_list[dict_key_int][0]
-                    if folder =='archives':
-                        try:
-                            shutil.unpack_archive(path, os.path.join(f'{folder_path}\\archives\\{new_name}'), extension)
-                            os.remove(path)
-                        except ValueError:
-                            continue
                     break
             new_path = os.path.join(
                     f'{folder_path}\\{folder}\\', new_name)

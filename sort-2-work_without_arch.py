@@ -65,8 +65,8 @@ def normalize(file_for_translate):
 
 if __name__ == "__main__":
 #main_path = 'C:/Users/Rost/Desktop/Мотлох1/'
-#main_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2\\'
-    main_path = sys.argv[1]
+    main_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2\\'
+    #main_path = sys.argv[1]
     create_folders_from_extension(main_path, extensions)
     folder_path = main_path
 for root, dirs, files in os.walk(folder_path):
