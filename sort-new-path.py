@@ -9,7 +9,7 @@ extensions = {
     'video': ['.mp4', '.mov', '.avi', '.mkv'],
     'audio': ['.mp3', '.wav', '.ogg', '.amr'],
     'images': ['.jpg', '.png', '.jpeg', '.svg'],
-    'archives': ['.zip', '.rar', '.gz', '.tar'],
+    'archives': ['.zip', '.gz', '.tar'],
     'documents': ['.pdf', '.txt', '.doc', '.docx', '.rtf', '.pptx', '.ppt', '.xlsx', '.xls']
 }
 # py sort.py i:/Users/rostislav.ATEM/Desktop/Мотлох/
@@ -33,9 +33,9 @@ def del_empty_dirs(path):
 
 
 def extract_file(file: Path, folder_path: Path, extension) -> None:
-    print(file)
+    print(extension)
     shutil.unpack_archive(
-        file, 'C:/Users/Rost/Desktop/Мотлох11\\archives', extension)
+        file, 'C:/Users/Rost/Desktop/Мотлох11/archives', extension)
     try:
         # print(f'{root_dir}\\archives\\')
         os.remove(file)
