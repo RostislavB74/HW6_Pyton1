@@ -2,7 +2,7 @@ import os
 import sys
 import shutil
 from pathlib import Path
-from glob import glob
+import uuid
 from normalize import normalize
 
 extensions = {
@@ -17,6 +17,7 @@ extensions = {
 #main_path = 'C:/Users/Rost/Desktop/Мотлох1/'
 #main_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2'
 #folder_path = 'C:/Users/Rost/Desktop/Мотлох1'
+#py sort-new-path.py I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2
 #path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох2'
 
 def del_empty_dirs(path):
@@ -34,9 +35,9 @@ def get_extension(file: Path) -> str:
     #print(ext)
     for key, values in extensions.items():
         if ext in values:
-            #print(key)
+            print(key)
             return key
-        return "unknown"
+    return "unknown"
 
 def main():
     try:
@@ -49,13 +50,26 @@ def main():
     sort_folder(path)
     return "All ok"
 
+def move_file(file: Path, root_dir: Path, categorie: str) -> None:
+    target_dir = root_dir.joinpath(categorie)
+    if not target_dir.exists():
+        # print(f"Make {target_dir}")
+        target_dir.mkdir()
+    # print(path.suffix)
+    # print(target_dir.joinpath(f"{normalize(path.stem)}{path.suffix}"))
+    new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
+    if new_name.exists():
+       new_name = new_name.with_name(f"{new_name.stem}-{uuid.uuid4()}{file.suffix}")
+    file.rename(new_name)
+
 
 def sort_folder(path: Path) -> None:
     for elem in path.glob("**/*"):
-        print(elem)
+        #print(elem)
         if elem.is_file():
             extension = get_extension(elem)
-            print(extension)
+            move_file (elem, path, extension)
+            # print(extension)
             del_empty_dirs(path)
     
 
