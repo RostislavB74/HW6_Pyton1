@@ -32,16 +32,23 @@ def del_empty_dirs(path):
                 print(a, 'видалена')
 
 
-def extract_file(file: Path, folder_path: Path, extension) -> None:
-    print(extension)
-    shutil.unpack_archive(
-        file, 'C:/Users/Rost/Desktop/Мотлох11/archives', extension)
-    try:
-        # print(f'{root_dir}\\archives\\')
-        os.remove(file)
-    except ValueError:
-        # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])
-        return
+def extract_file(folder_path) -> None:
+    extract_dir = folder_path.joinpath('archives')
+    print(extract_dir)
+    for elem in extract_dir.glob("**/"):
+        print(elem.name)
+        target_dir = extract_dir.joinpath(f'{extract_dir}\{elem.stem}')
+        print(target_dir)
+        target_dir.mkdir()
+    # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
+        shutil.unpack_archive(elem, target_dir)
+        # os.remove(elem)
+        continue
+    # try:
+    # except ValueError:
+    # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
+    # shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])
+    return
 
 
 def get_extension(file: Path) -> str:
@@ -68,14 +75,17 @@ def main():
 
 def move_file(file: Path, root_dir: Path, categorie: str) -> None:
     target_dir = root_dir.joinpath(categorie)
+    # print(target_dir)
     if not target_dir.exists():
         target_dir.mkdir()
     new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
+    # print(file.stem)
+
+    # if new_name.exists():
     # print(new_name)
-    if new_name.exists():
-        new_name = new_name.with_name(
-            f"{new_name.stem}-{uuid.uuid4()}{file.suffix}")
-    file.rename(new_name)
+    # new_name = new_name.with_name(
+    #    f"{new_name.stem}-{uuid.uuid4()}{file.suffix}")
+    file.replace(new_name)
 
 
 def sort_folder(path: Path) -> None:
@@ -83,11 +93,10 @@ def sort_folder(path: Path) -> None:
         # print(elem)
         if elem.is_file():
             extension = get_extension(elem)
-            if extension == 'archives':
-                extract_file(elem, path, extension)
             move_file(elem, path, extension)
-
-            # print(extension)
+            # if extension == 'archives':
+            #    extract_file(elem)
+    extract_file(path)
     del_empty_dirs(path)
     # extract_file(path)
 
