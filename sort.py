@@ -51,7 +51,7 @@ def main():
         return "No path to folder"
 
     if not path.exists():
-        return f"Folder with path {path} dos`n exists."
+        return f"Folder with path {path} dosn't exists."
     sort_folder(path)
     return "All ok"
 
