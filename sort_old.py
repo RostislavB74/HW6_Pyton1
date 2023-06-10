@@ -34,33 +34,20 @@ def del_empty_dirs(path):
 
 def extract_file(folder_path) -> None:
     extract_dir = folder_path.joinpath('archives')
-    # print(extract_dir)
     for elem in extract_dir.glob("*.*"):
-        # if elem.is_file():
         target_dir = extract_dir.joinpath(f'{extract_dir}\{elem.stem}')
-        # print(target_dir)
-        # target_dir.mkdir()
-        # print(elem)
-        # print(elem.stem)
         if not target_dir.exists():
             target_dir.mkdir()
-        # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
         shutil.unpack_archive(elem, target_dir)
         os.remove(elem)
         continue
-    # try:
-    # except ValueError:
-    # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
-    # shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])
     return
 
 
 def get_extension(file: Path) -> str:
     ext = file.suffix.lower()
-    # print(ext)
     for key, values in extensions.items():
         if ext in values:
-            # print(key)
             return key
     return "unknown"
 
@@ -79,35 +66,20 @@ def main():
 
 def move_file(file: Path, root_dir: Path, categorie: str) -> None:
     target_dir = root_dir.joinpath(categorie)
-    # print(target_dir)
     if not target_dir.exists():
         target_dir.mkdir()
     new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
 
-    # if new_name.exists():
-    # print(new_name)
-    # new_name = new_name.with_name(
-    #    f"{new_name.stem}-{uuid.uuid4()}{file.suffix}")
     file.replace(new_name)
 
 
 def sort_folder(path: Path) -> None:
     for elem in path.glob("**/*"):
-        # print(elem)
         if elem.is_file():
             extension = get_extension(elem)
             move_file(elem, path, extension)
-            # if extension == 'archives':
-            #    extract_file(elem)
     extract_file(path)
-    # del_empty_dirs(path)
-    # extract_file(path)
-
-
-# main_path = 'C:/Users/Rost/Desktop/Мотлох/'
-# folder_path = 'I:\\Users\\rostislav.ATEM\\Desktop\\Мотлох'
-# py sort.py i:/Users/rostislav.ATEM/Desktop/Мотлох
-# main_path = sys.argv[1]
+    del_empty_dirs(path)
 
 
 if __name__ == "__main__":
