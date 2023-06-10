@@ -83,7 +83,6 @@ def move_file(file: Path, root_dir: Path, categorie: str) -> None:
     if not target_dir.exists():
         target_dir.mkdir()
     new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
-    # print(file.stem)
 
     # if new_name.exists():
     # print(new_name)
