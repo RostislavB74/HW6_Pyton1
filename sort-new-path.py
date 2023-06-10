@@ -34,15 +34,19 @@ def del_empty_dirs(path):
 
 def extract_file(folder_path) -> None:
     extract_dir = folder_path.joinpath('archives')
-    print(extract_dir)
-    for elem in extract_dir.glob("**/"):
-        print(elem.name)
+    # print(extract_dir)
+    for elem in extract_dir.glob("*.*"):
+        # if elem.is_file():
         target_dir = extract_dir.joinpath(f'{extract_dir}\{elem.stem}')
-        print(target_dir)
-        target_dir.mkdir()
-    # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
+        # print(target_dir)
+        # target_dir.mkdir()
+        # print(elem)
+        # print(elem.stem)
+        if not target_dir.exists():
+            target_dir.mkdir()
+        # new_name = target_dir.joinpath(f"{normalize(file.stem)}{file.suffix}")
         shutil.unpack_archive(elem, target_dir)
-        # os.remove(elem)
+        os.remove(elem)
         continue
     # try:
     # except ValueError:
@@ -97,7 +101,7 @@ def sort_folder(path: Path) -> None:
             # if extension == 'archives':
             #    extract_file(elem)
     extract_file(path)
-    del_empty_dirs(path)
+    # del_empty_dirs(path)
     # extract_file(path)
 
 
