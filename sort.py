@@ -10,7 +10,8 @@ extensions = {
     'audio': ['.mp3', '.wav', '.ogg', '.amr'],
     'images': ['.jpg', '.png', '.jpeg', '.svg'],
     'archives': ['.zip', '.gz', '.tar'],
-    'documents': ['.pdf', '.txt', '.doc', '.docx', '.rtf', '.pptx', '.ppt', '.xlsx', '.xls']
+    'documents': ['.pdf', '.txt', '.doc', '.docx',
+                  '.rtf', '.pptx', '.ppt', '.xlsx', '.xls']
 }
 
 
@@ -27,7 +28,7 @@ def del_empty_dirs(path):
 def extract_file(folder_path) -> None:
     extract_dir = folder_path.joinpath('archives')
     for elem in extract_dir.glob("*.*"):
-        target_dir = extract_dir.joinpath(f'{extract_dir}\{elem.stem}')
+        target_dir = extract_dir.joinpath(f"{extract_dir}\{elem.stem}")
         if not target_dir.exists():
             target_dir.mkdir()
         shutil.unpack_archive(elem, target_dir)
